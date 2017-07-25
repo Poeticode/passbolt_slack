@@ -6,10 +6,10 @@ App::uses('CakeEventManager', 'Event');
 
 // Configuration for PassboltSlack.
 Configure::write('PassboltSlack', [
-		'token' => '',
-		'channel' => '#channelname',
-		'username' => 'username',
-		'icon_emoji' => ':ghost:',
+		'token' => 'T03GS3H9Q/B6DD2HQE8/moM03jCRZoLXNVfc4g9XztxK',
+		'channel' => '#security',
+		'username' => 'Slackbolt',
+		'icon_emoji' => ':cop:',
 	]);
 
 // Attach listeners.

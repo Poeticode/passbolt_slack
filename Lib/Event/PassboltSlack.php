@@ -11,6 +11,7 @@ class PassboltSlack implements CakeEventListener {
 	public function implementedEvents() {
 		return array(
 			'Model.User.afterRegister' => 'afterUserRegister',
+			'Controller.ShareController.afterShare' => 'afterShareNotification'
 		);
 	}
 
@@ -31,6 +32,22 @@ class PassboltSlack implements CakeEventListener {
 
 			// Push on slack.
 			Slack::send("$name ($email) registered to <$url|Passbolt Demo>");
+		}
+	}
+
+	public function afterShareNotification($event) {
+		if (Configure::read('PassboltSlack') && Configure::read('debug') == 0) {
+
+			$recipient_name = $event->data['recipient'];
+			$sender_name = $event->data['sender'];
+			$resource_name = $event->data['resource'];
+
+			// Get message configuration.
+			Configure::write('Slack', Configure::read('PassboltSlack'));
+
+			// Slack::send("Testing this!");
+			Slack::send("Hey $recipient_name! $sender_name shared $resource_name with you.");
+
 		}
 	}
 }
